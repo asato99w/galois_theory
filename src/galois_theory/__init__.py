@@ -6,9 +6,11 @@
 
 from .ring import Ring, RingElement, IntegerRing, RationalRing
 from .field import Field, FieldElement, RationalField, FiniteField
+from .polynomials import Polynomial, PolynomialRing, PolynomialElement, PolynomialException
 
 __version__ = "0.1.0"
 __all__ = [
     "Ring", "RingElement", "IntegerRing", "RationalRing",
-    "Field", "FieldElement", "RationalField", "FiniteField"
+    "Field", "FieldElement", "RationalField", "FiniteField",
+    "Polynomial", "PolynomialRing", "PolynomialElement", "PolynomialException"
 ]
