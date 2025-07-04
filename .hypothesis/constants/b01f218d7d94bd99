@@ -1,4 +1,0 @@
-# file: /Users/sabira/Documents/practice/MINE/MATH_PRACTICE/galois_theory/src/galois_theory/__init__.py
-# hypothesis_version: 6.135.24
-
-['0.1.0', 'IntegerRing', 'RationalRing', 'Ring', 'RingElement']
