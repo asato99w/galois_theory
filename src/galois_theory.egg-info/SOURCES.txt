@@ -1,0 +1,11 @@
+README.md
+pyproject.toml
+src/galois_theory/__init__.py
+src/galois_theory/ring.py
+src/galois_theory.egg-info/PKG-INFO
+src/galois_theory.egg-info/SOURCES.txt
+src/galois_theory.egg-info/dependency_links.txt
+src/galois_theory.egg-info/requires.txt
+src/galois_theory.egg-info/top_level.txt
+tests/test_environment.py
+tests/test_ring.py
