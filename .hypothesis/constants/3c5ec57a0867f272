@@ -1,0 +1,4 @@
+# file: /Users/sabira/Documents/practice/MINE/MATH_PRACTICE/galois_theory/src/galois_theory/ring.py
+# hypothesis_version: 6.135.24
+
+['Ring', 'RingElement', '整数環 Z', '有理数環 Q', '異なる環の要素同士の演算はできません']
