@@ -1,16 +1,32 @@
 """
 ガロア理論ライブラリ
 
-このライブラリは、5次方程式の解の存在判定をガロア理論を用いて行うためのツールを提供します。
+このパッケージは、ガロア理論の基本的な概念を実装します。
+環、体、多項式環、体拡大、ガロア群などの数学的構造を提供します。
 """
 
-from .ring import Ring, RingElement, IntegerRing, RationalRing
-from .field import Field, FieldElement, RationalField, FiniteField
-from .polynomials import Polynomial, PolynomialRing, PolynomialElement, PolynomialException
+from .ring import IntegerRing, RingElement
+from .field import RationalField, FiniteField, FieldElement
+from .polynomials import Polynomial, PolynomialRing, PolynomialElement
+from .field_extensions import (
+    FieldExtension, SimpleExtension, ExtensionElement,
+    AlgebraicElement, MinimalPolynomial, SplittingField,
+    FieldExtensionException
+)
 
 __version__ = "0.1.0"
 __all__ = [
-    "Ring", "RingElement", "IntegerRing", "RationalRing",
-    "Field", "FieldElement", "RationalField", "FiniteField",
-    "Polynomial", "PolynomialRing", "PolynomialElement", "PolynomialException"
+    # Ring classes
+    "IntegerRing", "RingElement",
+    
+    # Field classes
+    "RationalField", "FiniteField", "FieldElement",
+    
+    # Polynomial classes
+    "Polynomial", "PolynomialRing", "PolynomialElement",
+    
+    # Field extension classes
+    "FieldExtension", "SimpleExtension", "ExtensionElement",
+    "AlgebraicElement", "MinimalPolynomial", "SplittingField",
+    "FieldExtensionException",
 ]

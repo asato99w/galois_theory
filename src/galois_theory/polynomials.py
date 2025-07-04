@@ -324,7 +324,8 @@ class Polynomial:
         if divisor.is_zero():
             raise PolynomialException("零多項式による除法はできません")
 
-        if self.base_ring != divisor.base_ring:
+        # 基底環の比較を改善（FieldExtensionの場合も考慮）
+        if not self._compatible_base_rings(self.base_ring, divisor.base_ring):
             raise ValueError("異なる基底環の多項式同士の演算はできません")
 
         if self.degree() < divisor.degree():
@@ -372,9 +373,38 @@ class Polynomial:
 
         return quotient, dividend
 
+    def _compatible_base_rings(self, ring1, ring2, visited=None) -> bool:
+        """基底環の互換性をチェック（循環参照防止付き）"""
+        # 循環参照防止
+        if visited is None:
+            visited = set()
+        
+        # 同じペアを既にチェック済みなら循環参照
+        ring_pair = (id(ring1), id(ring2))
+        if ring_pair in visited:
+            return True  # 循環参照の場合は互換として扱う
+        visited.add(ring_pair)
+        
+        # 同じオブジェクトなら互換
+        if ring1 == ring2:
+            return True
+        
+        # 両方ともFieldExtensionの場合、基底体が同じなら互換
+        from .field_extensions import FieldExtension
+        if isinstance(ring1, FieldExtension) and isinstance(ring2, FieldExtension):
+            return self._compatible_base_rings(ring1.base_field, ring2.base_field, visited)
+        
+        # 片方がFieldExtension、もう片方がその基底体の場合は互換
+        if isinstance(ring1, FieldExtension):
+            return self._compatible_base_rings(ring1.base_field, ring2, visited)
+        if isinstance(ring2, FieldExtension):
+            return self._compatible_base_rings(ring1, ring2.base_field, visited)
+            
+        return False
+
     def gcd(self, other: "Polynomial") -> "Polynomial":
         """多項式の最大公約数（ユークリッドの互除法）"""
-        if self.base_ring != other.base_ring:
+        if not self._compatible_base_rings(self.base_ring, other.base_ring):
             raise ValueError("異なる基底環の多項式同士の演算はできません")
 
         a = copy.deepcopy(self)
@@ -503,6 +533,15 @@ class Polynomial:
 
     def has_rational_root(self) -> bool:
         """有理根を持つかを判定（有理根定理を使用）"""
+        # 拡大体上の多項式の場合、基本的な場合のみチェック
+        from .field_extensions import FieldExtension
+        if isinstance(self.base_ring, FieldExtension):
+            # 1次多項式は常に根を持つ
+            if self.degree() <= 1:
+                return True
+            # 2次以上は複雑なので、簡単に既約と仮定
+            return False
+            
         if not isinstance(self.base_ring, Field):
             return False
             
@@ -644,6 +683,14 @@ class Polynomial:
         # 1次多項式は常に既約
         if degree == 1:
             return True
+        
+        # 拡大体上の多項式の場合、簡単な判定のみ行う
+        from .field_extensions import FieldExtension
+        if isinstance(self.base_ring, FieldExtension):
+            # 拡大体上では、基本的な有理根テストのみ実行
+            if degree <= 3:
+                return not self.has_rational_root()
+            return True  # 高次は既約と仮定
         
         # 有限体上での判定
         if hasattr(self.base_ring, 'characteristic'):

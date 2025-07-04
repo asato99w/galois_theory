@@ -89,7 +89,7 @@ class Field(ABC):
     3. 分配律が成り立つ
     """
     
-    def __init__(self, name: str):
+    def __init__(self, name: str = "Field"):
         """
         体を初期化
         
@@ -97,6 +97,8 @@ class Field(ABC):
             name: 体の名前
         """
         self.name = name
+        # 代数的閉体の概念的プロパティ
+        self.algebraic_closure = None
     
     def __eq__(self, other: 'Field') -> bool:
         """体の等価性判定"""
