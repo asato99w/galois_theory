@@ -1,0 +1,22 @@
+# テストフレームワーク
+pytest>=7.0.0
+pytest-cov>=4.0.0
+pytest-mock>=3.10.0
+
+# プロパティベーステスト
+hypothesis>=6.70.0
+
+# 静的型検査
+mypy>=1.0.0
+
+# 数学ライブラリ
+sympy>=1.12
+numpy>=1.21.0,<2.0.0
+
+# 開発ツール
+black>=22.0.0
+flake8>=5.0.0
+isort>=5.12.0
+
+# 型ヒント
+typing-extensions>=4.0.0 
