@@ -5,6 +5,10 @@
 """
 
 from .ring import Ring, RingElement, IntegerRing, RationalRing
+from .field import Field, FieldElement, RationalField, FiniteField
 
 __version__ = "0.1.0"
-__all__ = ["Ring", "RingElement", "IntegerRing", "RationalRing"]
+__all__ = [
+    "Ring", "RingElement", "IntegerRing", "RationalRing",
+    "Field", "FieldElement", "RationalField", "FiniteField"
+]
